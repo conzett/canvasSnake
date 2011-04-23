@@ -118,6 +118,7 @@ var level = new levelObject(null, { width: 300, height: 300 });
 var canvas = document.getElementById('level');
 var time = 100;
 var status = "play";
+var score = 0;
 
 level.createFood(5, 8);
 
@@ -181,7 +182,10 @@ function loop(){
 			Math.floor(Math.random() * (level.dimensions.width / level.increment)),
 			Math.floor(Math.random() * (level.dimensions.height / level.increment))
 		)
+		score += 10;
 	}
+	
+	document.getElementById('score').innerHTML = score;
 	
 	if( status !== "stop"){
 		setTimeout ( "loop()", time );
