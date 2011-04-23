@@ -34,25 +34,25 @@ var snakeObject = function(direction, body){
 	}
 	
 	this.left = function(){
-		if(this.direction === 1 || 3){
+		if(this.direction === 1 || this.direction === 3){
 			this.direction = 4;
 		}
 	}
 	
 	this.up = function(){
-		if(this.direction === 2 || 4){
+		if(this.direction === 2 || this.direction === 4){
 			this.direction = 1;
 		}
 	}
 	
 	this.down = function(){
-		if(this.direction === 2 || 4){
+		if(this.direction === 2 || this.direction === 4){
 			this.direction = 3;
 		}
 	}
 	
 	this.right = function(){
-		if(this.direction === 1 || 3){
+		if(this.direction === 1 || this.direction === 3){
 			this.direction = 2;
 		}
 	}
