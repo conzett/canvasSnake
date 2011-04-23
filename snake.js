@@ -90,10 +90,11 @@ var snakeObject = function(direction, body){
 	}
 }
 
-var levelObject = function(snake, dimensions, increment){
+var levelObject = function(snake, width, height, increment){
 	
 	this.snake = snake || new snakeObject();
-	this.dimensions = dimensions || { width: 100, height: 100};
+	this.width = width || 300;
+	this.height = height || 300;
 	this.increment = increment || 10;
 	this.food = new Array();
 	
@@ -103,9 +104,9 @@ var levelObject = function(snake, dimensions, increment){
 	
 	this.outOfBounds = function(){
 		if(
-		   ((this.snake.body[0].x * this.increment >= this.dimensions.width) ||
+		   ((this.snake.body[0].x * this.increment >= this.width) ||
 		   (this.snake.body[0].x * this.increment < 0)) ||
-		   ((this.snake.body[0].y * this.increment >= this.dimensions.height) ||
+		   ((this.snake.body[0].y * this.increment >= this.height) ||
 		   (this.snake.body[0].y * this.increment < 0))
 		  ){
 			return true;
@@ -113,12 +114,15 @@ var levelObject = function(snake, dimensions, increment){
 		return false;
 	}	
 }
-var levelWidth = 500;
-var levelHeight = 500;
-var level = new levelObject(null, { width: levelWidth, height: levelHeight });
+
+var game = function(){
+
+}
+
+var level = new levelObject(null);
 var canvas = document.getElementById('level');
-canvas.width = levelWidth;
-canvas.height = levelHeight;
+canvas.width = level.width;
+canvas.height = level.height;
 var time = 100;
 var status = "play";
 var score = 0;
@@ -151,7 +155,7 @@ window.addEventListener('keydown', function(event) {
 
 function loop(){
 	
-	context.clearRect(0, 0, level.dimensions.width, level.dimensions.height);
+	context.clearRect(0, 0, level.width, level.height);
 	level.snake.move();
 	
 	var j;
@@ -182,8 +186,8 @@ function loop(){
 		level.food.shift();
 		level.snake.grow();
 		level.createFood(
-			Math.floor(Math.random() * (level.dimensions.width / level.increment)),
-			Math.floor(Math.random() * (level.dimensions.height / level.increment))
+			Math.floor(Math.random() * (level.width / level.increment)),
+			Math.floor(Math.random() * (level.height / level.increment))
 		)
 		score += 10;
 	}
