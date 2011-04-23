@@ -113,9 +113,12 @@ var levelObject = function(snake, dimensions, increment){
 		return false;
 	}	
 }
-
-var level = new levelObject(null, { width: 300, height: 300 });
+var levelWidth = 500;
+var levelHeight = 500;
+var level = new levelObject(null, { width: levelWidth, height: levelHeight });
 var canvas = document.getElementById('level');
+canvas.width = levelWidth;
+canvas.height = levelHeight;
 var time = 100;
 var status = "play";
 var score = 0;
