@@ -115,86 +115,91 @@ var levelObject = function(snake, width, height, increment){
 	}	
 }
 
-var game = function(){
-
+var game = function(canvas, level, score, time){
+	
+	this.canvas = canvas || document.getElementById('level');
+	this.level = level || new levelObject();
+	this.canvas.width = this.level.width;
+	this.canvas.height = this.level.height;
+	this.score = score || 0;
+	this.time = time || 100;
+	this.status = "play";
+	var that = this;
+	
+	this.level.createFood(5, 8);
+	
+	window.addEventListener('keydown', function(event) {
+		
+		switch (event.keyCode) {
+			case 37:
+				that.level.snake.left();
+				break;
+			case 38:
+				that.level.snake.up();
+				break;
+			case 39:
+				that.level.snake.right();
+				break;
+			case 40:
+				that.level.snake.down();
+				break;
+		}
+		
+	}, false );
+	
+	this.loop = function(){
+	
+		context.clearRect(0, 0, that.level.width, that.level.height);
+		that.level.snake.move();
+	
+		var j;
+		
+		for(j=0; j< that.level.snake.body.length; j++)
+		{
+			context.fillRect(
+				that.level.snake.body[j].x * that.level.increment,
+				that.level.snake.body[j].y * that.level.increment,
+				that.level.increment, that.level.increment
+			);
+		}
+		
+		if(that.level.food.length > 0){
+			context.fillRect(
+				that.level.food[0].x * that.level.increment,
+				that.level.food[0].y * that.level.increment,
+				that.level.increment, that.level.increment
+			);
+		}
+		
+		if(that.level.outOfBounds() || that.level.snake.checkIntersection()){
+			that.status = "stop";
+			document.getElementById('status').innerHTML = "You Lost";
+		}
+		
+		if( (that.level.food[0].x === that.level.snake.body[0].x) &&
+		    (that.level.food[0].y === that.level.snake.body[0].y)){
+			that.level.food.shift();
+			that.level.snake.grow();
+			that.level.createFood(
+				Math.floor(Math.random() * (that.level.width / that.level.increment)),
+				Math.floor(Math.random() * (that.level.height / that.level.increment))
+			)
+			that.score += 10;
+		}
+		
+		document.getElementById('score').innerHTML = that.score;
+		
+		if( that.status !== "stop" ){			
+			setTimeout ( that.loop, that.time );
+		}
+	}
+	
+	if (this.canvas.getContext) {
+		var context = this.canvas.getContext('2d');
+		this.loop();
+	} else {
+		alert("Canvas Not Supported");
+	}
 }
 
-var level = new levelObject(null);
-var canvas = document.getElementById('level');
-canvas.width = level.width;
-canvas.height = level.height;
-var time = 100;
-var status = "play";
-var score = 0;
-
-level.createFood(5, 8);
-
-if (canvas.getContext){
-	var context = canvas.getContext('2d');
-	loop();
-} else {
-	alert("Canvas Not Supported");
-}
-
-window.addEventListener('keydown', function(event) {
-	switch (event.keyCode) {
-		case 37:
-			level.snake.left();
-			break;
-		case 38:
-			level.snake.up();
-			break;
-		case 39:
-			level.snake.right();
-			break;
-		case 40:
-			level.snake.down();
-			break;
-	}
-}, false);
-
-function loop(){
-	
-	context.clearRect(0, 0, level.width, level.height);
-	level.snake.move();
-	
-	var j;
-	
-	for(j=0; j< level.snake.body.length; j++)
-	{
-		context.fillRect(
-			level.snake.body[j].x * level.increment,
-			level.snake.body[j].y * level.increment,
-			level.increment, level.increment
-		);
-	}
-	
-	if(level.food.length > 0){
-		context.fillRect(
-			level.food[0].x * level.increment,
-			level.food[0].y * level.increment,
-			level.increment, level.increment
-		);
-	}
-	
-	if(level.outOfBounds() || level.snake.checkIntersection()){
-		status = "stop";
-		document.getElementById('status').innerHTML = "You Lost";
-	}
-	
-	if((level.food[0].x === level.snake.body[0].x) && (level.food[0].y === level.snake.body[0].y)){
-		level.food.shift();
-		level.snake.grow();
-		level.createFood(
-			Math.floor(Math.random() * (level.width / level.increment)),
-			Math.floor(Math.random() * (level.height / level.increment))
-		)
-		score += 10;
-	}
-	
-	document.getElementById('score').innerHTML = score;
-	
-	if( status !== "stop"){
-		setTimeout ( "loop()", time );
-	}
-}
+var game = new game();
