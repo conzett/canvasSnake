@@ -94,7 +94,7 @@ var levelObject = function(snake, width, height, increment){
 	
 	this.snake = snake || new snakeObject();
 	this.width = width || 300;
-	this.height = height || 300;
+	this.height = height || 170;
 	this.increment = increment || 10;
 	this.food = new Array();
 	

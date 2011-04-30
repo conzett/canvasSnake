@@ -2,11 +2,17 @@
 <html>
 	<head>	
 		<title>Snake</title>
+		<link href='http://fonts.googleapis.com/css?family=VT323' rel='stylesheet' type='text/css'>
+		<link rel="stylesheet" href="style.css" type="text/css" media="screen" />
 	</head>
 	<body>
-		<canvas style="background: rgb(189, 220, 144)" id="level"></canvas>
-		<div id="status"></div>
-		<div>Score: <span id="score">0</span></div>
+		<div id="container">
+			<canvas id="level"></canvas>
+			<div id="info">
+				<div id="score-text">Score: <span id="score">0</span></div>
+				<div id="status"></div>
+			</div>
+		</div>
 	</body>
 	<script src="snake.js"></script>
 </html>
