@@ -1,0 +1,29 @@
+#container {
+    background: rgb(189, 220, 144);
+    float: left;
+    padding: 10px;
+}
+
+canvas {
+    border: 1px solid black;
+    margin: 0 0 10px 0;
+    display: block;
+}
+
+#info {
+    height: 18px;
+}
+
+#score-text, #status {
+    font-family: 'VT323', arial, serif;
+    font-size: 18px;
+    line-height: 18px;
+}
+
+#score-text {
+    float: left;
+}
+
+#status {
+    float: right;
+}
