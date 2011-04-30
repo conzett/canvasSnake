@@ -156,6 +156,7 @@ var game = function(canvas, level, score, time){
 		
 		for(j=0; j< that.level.snake.body.length; j++)
 		{
+			context.fillStyle = "rgb(0, 31, 0)";
 			context.fillRect(
 				that.level.snake.body[j].x * that.level.increment,
 				that.level.snake.body[j].y * that.level.increment,
@@ -164,6 +165,7 @@ var game = function(canvas, level, score, time){
 		}
 		
 		if(that.level.food.length > 0){
+			context.fillStyle = "rgb(139, 139, 109)";
 			context.fillRect(
 				that.level.food[0].x * that.level.increment,
 				that.level.food[0].y * that.level.increment,
