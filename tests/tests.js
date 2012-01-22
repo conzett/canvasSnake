@@ -2,7 +2,7 @@ $(document).ready(function(){
 
 	module("Snake Module", {
 		setup: function() {
-			this.testSnake = new snakeObject(1, [{x: 9, y: 9}]);
+			this.testSnake = new Snake(1, [{x: 9, y: 9}]);
 		}
 	});	
 
@@ -84,21 +84,21 @@ $(document).ready(function(){
 	});
 	
 	test("Test if the snake correctly reports intersection", function() {
-		var intersection = new snakeObject( 1, [ {x:1,y:1}, {x:1,y:1} ] );
+		var intersection = new Snake( 1, [ {x:1,y:1}, {x:1,y:1} ] );
 		ok(intersection.checkIntersection(), "The snake corectly reports it intersects itself" );
 		intersection.body[0].x = 2;
 		ok(!intersection.checkIntersection(), "The snake corectly reports it does no intersect itself" );
 	});
 	
 	test('Test the "length() helper method', function() {
-		var lengthTest = new snakeObject( 1, [ {x:1,y:1}, {x:1,y:2} ] );
+		var lengthTest = new Snake( 1, [ {x:1,y:1}, {x:1,y:2} ] );
 		equals(lengthTest.length(), 2, "We expect the length to be 2" );
-		var lengthTest = new snakeObject( 1, [ {x:1,y:1}, {x:1,y:2}, {x:1,y:3}, {x:1,y:4} ] );
+		var lengthTest = new Snake( 1, [ {x:1,y:1}, {x:1,y:2}, {x:1,y:3}, {x:1,y:4} ] );
 		equals(lengthTest.length(), 4, "We expect the length to be 4" );
 	});
 	
 	test('Test the "grow() method', function() {
-		var growTest= new snakeObject( 1, [ {x:1,y:1}, {x:1,y:2} ] );
+		var growTest= new Snake( 1, [ {x:1,y:1}, {x:1,y:2} ] );
 		equals(growTest.grow(), 3, "We expect the snake to return its length incremented by 1" );
 		equals(growTest.body[growTest.body.length-1].x, growTest.body[growTest.body.length-2].x, "We expect the new segments x coordinates the same as the tail" );
 		equals(growTest.body[growTest.body.length-1].y, growTest.body[growTest.body.length-2].y + 1, "We expect the new segments y coordinates to be one more than the tail" );
@@ -106,7 +106,7 @@ $(document).ready(function(){
 	
 	module("Game Module", {
 		setup: function() {
-			this.testLevel = new levelObject(null, { width: 200, height: 200});
+			this.testLevel = new Level(null, { width: 200, height: 200});
 		}
 	});
 	
